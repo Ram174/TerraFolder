@@ -1,0 +1,27 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  - stage: Validate
+    jobs:
+      -  job: Validateandinstall
+         displayName: validating the terrafrom
+         steps:
+         - task: TerraformInstaller@0
+           inputs:
+             terraformVersion: 'latest'
+         -  script: |
+              ls $(System.DefaultWorkingDirectory)
+              terrafrom init -backend-config="./dev/backend.tfvars" 
+              terraform validate
+              terraform plan -var-file="./dev/qa.tfvars"
+
+
