@@ -28,6 +28,6 @@ stages:
               ls $(System.DefaultWorkingDirectory)
               az login --service-principal -u $(client_id) -p $(client_secret) --tenant $(tenant_id)
               terraform init -backend-config="storage_account_name=$(tfBackendStorageAccountName)" -backend-config="container_name=$(tfBackendStorageContainerName)" -backend-config="access_key=$(tfBackendSAAccessKey)" -backend-config="key=$(tfBackendFileName)-dev" 
-              terraform plan -var-file="./dev/qa.tfvars"
+              terraform plan -var-file=""./dev/qa.tfvars" -var="client_id=$(client_id)" -var="client_secret=$(client_secret)" -var="tenant_id=$(tenant_id)" -var="subscription_id=$(subscription_id)"
 
 
