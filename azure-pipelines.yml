@@ -20,6 +20,7 @@ stages:
              terraformVersion: 'latest'
          -  script: |
               ls $(System.DefaultWorkingDirectory)
+              az login --service-principal -u $(client_id) -p $(client_secret) --tenant $(tenant_id)
               terraform init -backend-config="./dev/backend.tfvars" 
               terraform plan -var-file="./dev/qa.tfvars"
 
