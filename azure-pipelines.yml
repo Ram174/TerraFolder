@@ -5,6 +5,12 @@
 
 trigger:
 - master
+variables:
+  tfBackendStorageAccountName: terra01
+  tfBackendStorageContainerName: terrastate
+  tfBackendSAAccessKey: p6DX04JuXqhNumFxhO2TECa/uizXGwqNV3TNlg2V38y/0O6Uyeik+78Sz0M7Unpz29qQzHHzpVHv+AStQT9+yQ==
+  tfBackendFileName: abtfstate
+
 
 pool:
   vmImage: ubuntu-latest
@@ -21,7 +27,7 @@ stages:
          -  script: |
               ls $(System.DefaultWorkingDirectory)
               az login --service-principal -u $(client_id) -p $(client_secret) --tenant $(tenant_id)
-              terraform init -backend-config="./dev/backend.tfvars" 
+              terraform init -backend-config="storage_account_name=$(tfBackendStorageAccountName)" -backend-config="container_name=$(tfBackendStorageContainerName)" -backend-config="access_key=$(tfBackendSAAccessKey)" -backend-config="key=$(tfBackendFileName)-dev" 
               terraform plan -var-file="./dev/qa.tfvars"
 
 
