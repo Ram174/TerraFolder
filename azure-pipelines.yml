@@ -20,8 +20,7 @@ stages:
              terraformVersion: 'latest'
          -  script: |
               ls $(System.DefaultWorkingDirectory)
-              terrafrom init -backend-config="./dev/backend.tfvars" 
-              terraform validate
+              terraform init -backend-config="./dev/backend.tfvars" 
               terraform plan -var-file="./dev/qa.tfvars"
 
 
