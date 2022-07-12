@@ -30,5 +30,11 @@ stages:
               terraform init 
               terraform plan -var-file="./dev/qa.tfvars" -out="out.plan" -var="client_id=$(client_id)" -var="client_secret=$(client_secret)" -var="tenant_id=$(tenant_id)" -var="subscription_id=$(subscription_id)"
 # https://rakesh-suryawanshi.medium.com/azure-devops-multi-stage-pipeline-for-terraform-493d502a67b6
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStageDirectory)'
+    artifact: pre_artifact
 
 
