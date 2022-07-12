@@ -32,7 +32,7 @@ stages:
 # https://rakesh-suryawanshi.medium.com/azure-devops-multi-stage-pipeline-for-terraform-493d502a67b6
          - task: CopyFiles@2
            inputs:
-            SourceFolder: 'TerraFolder'
+            SourceFolder: '$(System.DefaultWorkingDirectory)'
             Contents: |
                       **/*
             TargetFolder: '$(Build.ArtifacpreagingDirectory)'
